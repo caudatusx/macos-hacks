@@ -1,0 +1,13 @@
+#!/usr/local/bin/bash -eu
+
+declare path
+declare args="$@"
+
+if [[ $# -eq 0 ]]; then
+	path='.'
+elif [[ -z "${args%%-*}" ]]; then
+	path='.'
+fi
+
+set -x
+exec /usr/bin/find ${path:-} "$@"
