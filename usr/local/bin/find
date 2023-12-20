@@ -1,4 +1,9 @@
-#!/usr/local/bin/bash -eu
+#!/usr/bin/env bash -eu
+
+# -------------------------------------------------------------------------------------------------------
+# Since the find command does not work on macOS without specifying a path, as it normally does on Linux,
+# here is a useful wrapper, which fills in the command arguments with the current path, if it is missing.
+# -------------------------------------------------------------------------------------------------------
 
 declare path
 declare args="$@"
@@ -9,5 +14,6 @@ elif [[ -z "${args%%-*}" ]]; then
 	path='.'
 fi
 
-set -x
+[[ -t 1 ]] && set -x ||:
 exec /usr/bin/find ${path:-} "$@"
+
